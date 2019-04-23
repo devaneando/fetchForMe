@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    PATH="./src"
+else
+    PATH="${1}"
+fi
+
+/usr/bin/reset
+
+/usr/bin/php ./bin/security-checker security:check ./composer.json
+
+/usr/bin/php ./vendor/bin/phpstan analyse --configuration=./phpstan.neon --level=4 "${PATH}"

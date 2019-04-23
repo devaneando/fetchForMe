@@ -1,0 +1,271 @@
+<?php
+
+return PhpCsFixer\Config::create()
+    ->setUsingCache(false)
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__ . '/src')
+            ->append([__FILE__])
+    )
+    // Check https://github.com/FriendsOfPHP/PHP-CS-Fixer
+    ->setRules([
+        '@PSR2' => true,
+
+        /*
+         * An empty line feed must precede any configured statement.
+         * Configuration: ['statements' => ['return']]
+         */
+        'blank_line_before_statement' => true,
+
+        /* Concatenation should be spaced according configuration. */ // Configuration: ['spacing' => 'none']
+        'concat_space' => true,
+
+        // Equal sign in declare statement should be surrounded by spaces or not following configuration.
+        'declare_equal_normalize' => true,
+
+        // Add missing space between function's argument and its typehint.
+        'function_typehint_space' => true,
+
+        /*
+         * Include/Require and file path should be divided with a single space.
+         * File path should not be placed under brackets.
+         */
+        'include' => true,
+
+        // Pre- or post-increment and decrement operators should be used if possible.
+        'increment_style' => true,
+
+        // Cast should be written in lower case.
+        'lowercase_cast' => true,
+
+        // Magic constants should be referred to using the correct casing.
+        'magic_constant_casing' => true,
+
+        // Methods must be separated with one blank line.
+        'method_separation' => true,
+
+        // Function defined by PHP should be called using the correct casing.
+        'native_function_casing' => true,
+
+        // All instances created with new keyword must be followed by braces.
+        'new_with_braces' => true,
+
+        // There should be no empty lines after class opening brace.
+        'no_blank_lines_after_class_opening' => true,
+
+        // There should not be blank lines between docblock and the documented element.
+        'no_blank_lines_after_phpdoc' => true,
+
+        // There should not be any empty comments.
+        'no_empty_comment' => true,
+
+        // There should not be empty PHPDoc blocks.
+        'no_empty_phpdoc' => true,
+
+        // Remove useless semicolon statements.
+        'no_empty_statement' => true,
+
+        /*
+         * Removes extra blank lines and/or blank lines following configuration.
+         * Configuration:
+         * ['tokens' => ['curly_brace_block', 'extra', 'parenthesis_brace_block', 'square_brace_block', 'throw', 'use']]
+         */
+        'no_extra_blank_lines' => ['tokens' => ['curly_brace_block', 'extra', 'parenthesis_brace_block', 'square_brace_block', 'throw', 'use']],
+
+        // The namespace declaration line shouldn't contain leading whitespace.
+        'no_leading_namespace_whitespace' => true,
+
+        // Either language construct `print` or `echo` should be used. Configuration: ['use' => 'echo']
+        'no_mixed_echo_print' => ['use' => 'echo'],
+
+        // Operator `=>` should not be surrounded by multi-line whitespaces.
+        'no_multiline_whitespace_around_double_arrow' => true,
+
+        // Short cast `bool` using double exclamation mark should not be used.
+        'no_short_bool_cast' => true,
+
+        // Single-line whitespace before closing semicolon are prohibited.
+        'no_singleline_whitespace_before_semicolons' => true,
+
+        // There MUST NOT be spaces around offset braces.
+        'no_spaces_around_offset' => true,
+
+        // Remove trailing commas in list function calls.
+        'no_trailing_comma_in_list_call' => true,
+
+        // PHP single-line arrays should not have trailing comma.
+        'no_trailing_comma_in_singleline_array' => true,
+
+        // Removes unneeded parentheses around control statements.
+        'no_unneeded_control_parentheses' => true,
+
+        // Removes unneeded curly braces that are superfluous and aren't part of a control structure's body.
+        'no_unneeded_curly_braces' => true,
+
+        // Unused use statements must be removed.
+        'no_unused_imports' => false,
+
+        // In array declaration, there MUST NOT be a whitespace before each comma.
+        'no_whitespace_before_comma_in_array' => true,
+
+        // Remove trailing whitespace at the end of blank lines.
+        'no_whitespace_in_blank_line' => true,
+
+        // Array index should always be written by using square braces.
+        'normalize_index_brace' => true,
+
+        // There should not be space before or after object `T_OBJECT_OPERATOR` `->`.
+        'object_operator_without_whitespace' => true,
+
+        /*
+         * Ordering use statements.
+         * Fixer is configurable using following options:
+         * sortAlgorithm ('alpha', 'length'): whether the statements should be sorted alphabetically or by length;
+         * defaults to 'alpha'
+         * importsOrder (array, null): defines the order of import types; defaults to null
+         */
+        'ordered_imports' => ['sortAlgorithm' => 'alpha'],
+
+        // PHPUnit annotations should be a FQCNs including a root namespace.
+        'php_unit_fqcn_annotation' => true,
+
+        // Phpdoc should contain @param for all params.
+        'phpdoc_add_missing_param_annotation' => true,
+
+        // All items of the given phpdoc tags must be aligned vertically.
+        'phpdoc_align' => false,
+
+        // Phpdocs annotation descriptions should not be a sentence.
+        'phpdoc_annotation_without_dot' => true,
+
+        // Docblocks should have the same indentation as the documented subject.
+        'phpdoc_indent' => true,
+
+        // Fix phpdoc inline tags, make inheritdoc always inline.
+        'phpdoc_inline_tag' => true,
+
+        // @access annotations should be omitted from phpdocs.
+        'phpdoc_no_access' => true,
+
+        // No alias PHPDoc tags should be used.
+        'phpdoc_no_alias_tag' => true,
+
+        // @return void and @return null annotations should be omitted from phpdocs.
+        'phpdoc_no_empty_return' => true,
+
+        // @package and @subpackage annotations should be omitted from phpdocs.
+        'phpdoc_no_package' => true,
+
+        // Classy that does not inherit must not have inheritdoc tags.
+        'phpdoc_no_useless_inheritdoc' => true,
+
+        /**
+         * Annotations in phpdocs should be ordered so that param annotations come first, then throws annotations,
+         * then return annotations.
+         */
+        'phpdoc_order' => true,
+
+        // The type of `@return` annotations of methods returning a reference to itself must the configured one.
+        'phpdoc_return_self_reference' => true,
+
+        /*
+         * Scalar types should always be written in the same form. * `int` not `integer`, `bool` not `boolean`,
+         *`float` not `real` or `double`.
+         */
+        'phpdoc_scalar' => true,
+
+        /*
+         * Annotations in phpdocs should be grouped together so that annotations of the same type immediately
+         * follow each other,  and annotations of a different type are separated by a single blank line.
+         */
+        'phpdoc_separation' => true,
+
+        // Single line @var PHPDoc should have proper spacing.
+        'phpdoc_single_line_var_spacing' => true,
+
+        // Phpdocs summary should end in either a full stop, exclamation mark, or question mark.
+        'phpdoc_summary' => true,
+
+        // Docblocks should only be used on structural elements.
+        'phpdoc_to_comment' => false,
+
+        // Phpdocs should start and end with content, excluding the very first and last line of the docblocks.
+        'phpdoc_trim' => true,
+
+        // The correct case must be used for standard PHP types in phpdoc.
+        'phpdoc_types' => true,
+
+        // Removes extra blank lines after summary and after description in PHPDoc.
+        'phpdoc_trim_consecutive_blank_line_separation' => true,
+
+        // \@var and \@type annotations should not contain the variable name.
+        'phpdoc_var_without_name' => false,
+
+        // Converts `protected` variables and methods to `private` where possible.
+        'protected_to_private' => false,
+
+        /*
+         * There should be one or no space before colon, and one space after it in return type declarations,
+         * according to configuration.
+         */
+        'return_type_declaration' => true,
+
+        // Inside a classy element "self" should be preferred to the class name itself.
+        'self_accessor' => true,
+
+        // Instructions must be terminated with a semicolon.
+        'semicolon_after_instruction' => true,
+
+        /*
+         * Cast `(boolean)` and `(integer)` should be written as `(bool)` and `(int)`,
+         * `(double)` and `(real)` as `(float)`.
+         */
+        'short_scalar_cast' => true,
+
+        // There should be exactly one blank line before a namespace declaration.
+        'single_blank_line_before_namespace' => true,
+
+        /*
+         * Single-line comments and multi-line comments with only one line of actual content should use the `//` syntax.
+         * Configuration: ['comment_types' => ['hash']]
+         */
+        'single_line_comment_style' => false,
+
+        // Convert double quotes to single quotes for simple strings.
+        'single_quote' => true,
+
+        /* Fix whitespace after a semicolon. */ // Configuration: ['remove_in_empty_for_expressions' => true]
+        'space_after_semicolon' => true,
+
+        // Replace all `<>` with `!=`.
+        'standardize_not_equals' => true,
+
+        // Standardize spaces around ternary operator.
+        'ternary_operator_spaces' => true,
+
+        // PHP multi-line arrays should have a trailing comma.
+        'trailing_comma_in_multiline_array' => true,
+
+        // Arrays should be formatted like function/method arguments, without leading or trailing single line space.
+        'trim_array_spaces' => true,
+
+        // Unary operators should be placed adjacent to their operands.
+        'unary_operator_spaces' => true,
+
+        // In array declaration, there MUST be a whitespace after each comma.
+        'whitespace_after_comma_in_array' => true,
+
+        /*
+         * Write conditions in Yoda style (`true`), non-Yoda style (`false`)
+         * or ignore those conditions (`null`) based on configuration.
+         */
+        'yoda_style' => true,
+
+        /*
+         * PHP arrays should be declared using the configured syntax.
+         * Fixer is configurable using following option:
+         * syntax ('long', 'short'): whether to use the `long` or `short` array syntax; defaults to 'long'
+         */
+        'array_syntax' => ['syntax' => 'short'],
+    ]);
