@@ -5,6 +5,7 @@ namespace App\Model;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use  App\Form\SortType;
 
 class FetchHotelType extends AbstractType
 {
@@ -16,6 +17,7 @@ class FetchHotelType extends AbstractType
     {
         $builder
             ->add('latitude', NumberType::class)
-            ->add('longitude', NumberType::class);
+            ->add('longitude', NumberType::class)
+            ->add('sortBy', SortType::class);
     }
 }

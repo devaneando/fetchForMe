@@ -3,8 +3,14 @@ title:
 label:
     latitude: Latitude
     longitude: Longitude
+    sort_by: Sort by
 button:
     fetch: Fetch
 placeholder:
     latitude: Latitude
     longitude: Longitude
+    sort_by: Sort by
+sort:
+    none: Default
+    price: Price per night
+    proximity: proximity
