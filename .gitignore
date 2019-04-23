@@ -1,0 +1,3 @@
+.docker/data/
+logs/*
+|logs/.gitignore
