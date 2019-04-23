@@ -28,11 +28,27 @@
             <button type="submit" class="btn btn-primary">{{ 'button.fetch'|trans() }}</button>
             {{ form_end(form) }}
         </div>
-        <div class="col-md-4">
-            &nbsp;
-        </div>
-        <div class="col-md-4">
-            &nbsp;
+        <div class="col-md-8">
+            <div id="hotel-list">
+                <table>
+                    <tr v-if="cols">
+                        <th v-for="col in cols" v-on:click="reorder(col)">
+                        {{ col }}
+                        </th>
+                    </tr>
+                    <tr v-for="row in rows">
+                        <td v-for="cell in row">
+                            <template v-if="cell">
+                                {{ cell }}
+                            </template>
+                            <template v-else>
+                            0
+                            </template>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            {{ dump(hotels) }}
         </div>
     </div>
 </div>
@@ -42,4 +58,6 @@
     {{ parent() }}
     <script src="/js/fetch.js"
             crossorigin="anonymous"></script>
+<script src="https://unpkg.com/marked@0.3.6"></script>
+<script src="https://unpkg.com/lodash@4.16.0"></script>
 {% endblock %}

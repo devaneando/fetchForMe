@@ -12,6 +12,9 @@ class SortType extends SymfonyAbstractType
     /** @var TranslatorInterface $translator */
     private $translator;
 
+    const SORT_PRICE = 'price';
+    const SORT_PROXIMITY = 'proximity';
+
     /** @required */
     public function setTranslator(TranslatorInterface $translator): self
     {
@@ -25,8 +28,8 @@ class SortType extends SymfonyAbstractType
         $resolver->setDefaults([
             'choices' => [
                 'sort.none' => null,
-                'sort.price' => 'price',
-                'sort.proximity' => 'proximity',
+                'sort.price' => self::SORT_PRICE,
+                'sort.proximity' => self::SORT_PROXIMITY,
             ],
             'choices_as_values' => true,
             'choice_translation_domain' => 'messages',
