@@ -1,0 +1,10 @@
+title:
+    fetch_your_hotel: Fetch your hotel!
+label:
+    latitude: Latitude
+    longitude: Longitude
+button:
+    fetch: Fetch
+placeholder:
+    latitude: Latitude
+    longitude: Longitude

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.fetch_your_hotel'|trans() }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="display-3">{{ 'title.fetch_your_hotel'|trans() }}</h1>
+            {{ form_start(form, {'attr' :  {'id' :  'form-fetch'}}) }}
+
+            <div class="form-group">
+                <label for="fetch_hotel_latitude">{{ 'label.latitude'|trans() }}</label>
+                {{ form_widget(form.latitude, {'attr' :  {'type' :  'text', 'class' :  'form-control', 'placeholder': 'placeholder.latitude'|trans(), 'data-discount-field' : 'true'}}) }}
+                {{ form_errors(form.latitude) }}
+            </div>
+            <div class="form-group">
+                <label for="fetch_hotel_longitude">{{ 'label.longitude'|trans() }}</label>
+                {{ form_widget(form.longitude, {'attr' :  {'type' :  'text', 'class' :  'form-control', 'placeholder': 'placeholder.longitude'|trans(), 'data-discount-field' : 'true'}}) }}
+                {{ form_errors(form.longitude) }}
+            </div>
+            <button type="submit" class="btn btn-primary">{{ 'button.fetch'|trans() }}</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/fetch.js"
+            crossorigin="anonymous"></script>
+{% endblock %}
