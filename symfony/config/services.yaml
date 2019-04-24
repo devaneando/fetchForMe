@@ -32,3 +32,5 @@ services:
         calls:
             - [ 'setApiUrl', ['%env(API_URL)%']]
             - [ 'setApiKey', ['%env(API_KEY)%']]
+        autowire: true
+        public: true

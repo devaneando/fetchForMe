@@ -116,11 +116,11 @@ class SearchService
      *
      * @return int
      */
-    protected function haversineDistance($latitudeOri, $longitudeOri, $latitudeDest, $longitudeDest): int
+    public function haversineDistance($latitudeOri, $longitudeOri, $latitudeDest, $longitudeDest): int
     {
         try {
-            $deltaLat = ($latitudeDest * M_PI / 180) - ($latitudeOri * M_PI / 180);
-            $deltaLon = ($longitudeDest * M_PI / 180) - ($longitudeOri * M_PI / 180);
+            $deltaLat = deg2rad($latitudeDest) - deg2rad($latitudeOri);
+            $deltaLon = deg2rad($longitudeDest) - deg2rad($longitudeOri);
 
             $angle = 2 * asin(sqrt(pow(sin($deltaLat / 2), 2) +
                 cos($latitudeOri) * cos($latitudeDest) * pow(sin($deltaLon / 2), 2)));
