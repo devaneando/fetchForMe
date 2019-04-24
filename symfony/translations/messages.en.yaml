@@ -14,3 +14,7 @@ sort:
     none: Default
     price: Price per night
     proximity: proximity
+table:
+    distance: Distance
+    hotel: Hotel
+    price: Price

@@ -29,26 +29,24 @@
             {{ form_end(form) }}
         </div>
         <div class="col-md-8">
-            <div id="hotel-list">
-                <table>
-                    <tr v-if="cols">
-                        <th v-for="col in cols" v-on:click="reorder(col)">
-                        {{ col }}
-                        </th>
+            <table id="hotel-list" class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr scope="row">
+                        <th field="name" scope="col">{{ 'table.hotel'|trans() }}</th>
+                        <th field="distance" scope="col">{{ 'table.distance'|trans() }}</th>
+                        <th field="price" scope="col">{{ 'table.price'|trans() }}</th>
                     </tr>
-                    <tr v-for="row in rows">
-                        <td v-for="cell in row">
-                            <template v-if="cell">
-                                {{ cell }}
-                            </template>
-                            <template v-else>
-                            0
-                            </template>
-                        </td>
+                </thead>
+                <tbody>
+                {% for hotel in hotels %}
+                    <tr scope="row">
+                        <td>{{ hotel.name }}</td>
+                        <td>{{ hotel.distance }}Km</td>
+                        <td>{{ hotel.price }}€</td>
                     </tr>
-                </table>
-            </div>
-            {{ dump(hotels) }}
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -58,6 +56,6 @@
     {{ parent() }}
     <script src="/js/fetch.js"
             crossorigin="anonymous"></script>
-<script src="https://unpkg.com/marked@0.3.6"></script>
-<script src="https://unpkg.com/lodash@4.16.0"></script>
+    <script type="text/javascript"
+            src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
 {% endblock %}

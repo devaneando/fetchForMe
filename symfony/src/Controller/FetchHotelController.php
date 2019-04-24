@@ -30,8 +30,8 @@ class FetchHotelController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
+                $hotels = $this->searchService->getNearbyHotels($data['latitude'], $data['longitude'], $data['sortBy']);
             }
-            $hotels = $this->searchService->getNearbyHotels($data['latitude'], $data['longitude']);
         }
         return $this->render('fetch_hotel/index.html.twig', [
             'form' => $form->createView(),

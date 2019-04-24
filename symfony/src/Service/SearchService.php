@@ -38,7 +38,16 @@ class SearchService
         return $this;
     }
 
-    public function getNearbyHotels($latitude, $longitude, $orderBy = null)
+    /**
+     * Get nearby hotels from the Webservice
+     *
+     * @param float $latitude
+     * @param float $longitude
+     * @param float $orderBy
+     *
+     * @return array
+     */
+    public function getNearbyHotels($latitude, $longitude, $orderBy = null): array
     {
         $hotels = $this->fetchHotels($latitude, $longitude);
         if (null === $orderBy) {
@@ -120,7 +129,7 @@ class SearchService
                 throw new \Exception('Not a number');
             }
 
-            return round(($angle * self::EARTH_RADIUS) / 1000);
+            return (int)round(($angle * self::EARTH_RADIUS) / 1000);
         } catch (\Exception $ex) {
             // If something the distance is invalid, return a very big number so it won't be considered in the
             // distance sort
@@ -128,7 +137,8 @@ class SearchService
         }
     }
 
-    protected function sortHotelsByPrice($a, $b)
+    /** usort callback function for price */
+    protected function sortHotelsByPrice($a, $b): int
     {
         if ($a['price'] == $b['price']) {
             return 0;
@@ -137,7 +147,8 @@ class SearchService
         return ($a['price'] < $b['price']) ? -1 : 1;
     }
 
-    protected function sortHotelsByDistance($a, $b)
+    /** usort callback function for distance */
+    protected function sortHotelsByDistance($a, $b): int
     {
         if ($a['distance'] === $b['distance']) {
             return 0;
