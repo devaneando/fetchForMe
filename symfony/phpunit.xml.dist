@@ -11,6 +11,8 @@
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="API_URL" value="-1" />
+        <server name="API_KEY" value="-1" />
     </php>
 
     <testsuites>
