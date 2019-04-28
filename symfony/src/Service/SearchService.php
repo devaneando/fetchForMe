@@ -6,7 +6,6 @@ class SearchService
 {
     const SORT_PRICE = 'price';
     const SORT_PROXIMITY = 'proximity';
-    const EARTH_RADIUS = 6371000;
 
     /** @var string */
     private $apiUrl;
@@ -43,13 +42,14 @@ class SearchService
      *
      * @param float $latitude
      * @param float $longitude
-     * @param float $orderBy
+     * @param string $orderBy
+     * @param int $maxDistance
      *
      * @return array
      */
-    public function getNearbyHotels($latitude, $longitude, $orderBy = null): array
+    public function getNearbyHotels($latitude, $longitude, $orderBy = null, $maxDistance = 100): array
     {
-        $hotels = $this->fetchHotels($latitude, $longitude);
+        $hotels = $this->fetchHotels($latitude, $longitude, $maxDistance);
         if (null === $orderBy) {
             return $hotels;
         }
@@ -67,10 +67,11 @@ class SearchService
      *
      * @param float $latitude
      * @param float $longitude
+     * @param int $maxDistance
      *
      * @return array
      */
-    protected function fetchHotels($latitude, $longitude): array
+    protected function fetchHotels($latitude, $longitude, $maxDistance = 100): array
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->apiUrl);
@@ -84,24 +85,39 @@ class SearchService
                 . '&longitude=' . $longitude
         );
         $hotels = curl_exec($curl);
+
         if (false === $hotels) {
             return [['name' => '', 'distance' => 0, 'price' => 0]];
         }
         $hotels = json_decode($hotels)->message;
-
         $data = [];
         foreach ($hotels as $hotel) {
-            $matches = [];
-            if (0 === preg_match('/\"(.+)\"/', $hotel[0], $matches)) {
+            // If the price is less than zero, ignore. It must be a mistake.
+            if (0 > $hotel[3]) {
                 continue;
             }
 
+            // If the distance is higher that the maxDistante, ignore
+            $distance = $this->haversineDistance($latitude, $longitude, $hotel[1], $hotel[2]);
+            if ($maxDistance < $distance) {
+                continue;
+            }
+
+            $matches = [];
+            $name = $hotel[0];
+            if (0 != preg_match('/\"(.+)\"/', $hotel[0], $matches)) {
+                $name = $matches[1];
+            }
+
             $data[] = [
-                'name' => $matches[1],
-                'distance' => (int)$this->haversineDistance($latitude, $hotel[1], $longitude, $hotel[2]),
-                'price' => (float)$hotel[3]
+                'name' => $name,
+                'distance' => $distance,
+                'price' => (float)$hotel[3],
+                'latitude' => $hotel[2],
+                'longitude' => $hotel[1],
             ];
         }
+
 
         return $data;
     }
@@ -114,26 +130,26 @@ class SearchService
      * @param float $latitudeDest
      * @param float $longitudeDest
      *
-     * @return int
+     * @return float
      */
-    public function haversineDistance($latitudeOri, $longitudeOri, $latitudeDest, $longitudeDest): int
+    public function haversineDistance($latitudeOri, $longitudeOri, $latitudeDest, $longitudeDest): float
     {
         try {
-            $deltaLat = deg2rad($latitudeDest) - deg2rad($latitudeOri);
-            $deltaLon = deg2rad($longitudeDest) - deg2rad($longitudeOri);
-
-            $angle = 2 * asin(sqrt(pow(sin($deltaLat / 2), 2) +
-                cos($latitudeOri) * cos($latitudeDest) * pow(sin($deltaLon / 2), 2)));
-
-            if (true === is_nan($angle)) {
-                throw new \Exception('Not a number');
+            if (($latitudeOri === $latitudeDest) && ($longitudeOri === $longitudeDest)) {
+                return 0;
             }
+            $deltaLongitude =  $longitudeOri -  $longitudeDest;
+            $sin = sin(deg2rad($latitudeOri)) * sin(deg2rad($latitudeDest));
+            $cos = cos(deg2rad($latitudeOri)) * cos(deg2rad($latitudeDest)) * cos(deg2rad($deltaLongitude));
+            $dist = acos($sin + $cos);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
 
-            return (int)round(($angle * self::EARTH_RADIUS) / 1000);
+            return round($miles * 1.609344, 2);
         } catch (\Exception $ex) {
             // If something the distance is invalid, return a very big number so it won't be considered in the
             // distance sort
-            return 999999;
+            return 999999.99;
         }
     }
 

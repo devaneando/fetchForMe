@@ -20,6 +20,11 @@
                 {{ form_errors(form.longitude) }}
             </div>
             <div class="form-group">
+                <label for="fetch_hotel_kilometers">{{ 'label.kilometers'|trans() }}</label>
+                {{ form_widget(form.kilometers, {'attr' :  {'type' :  'integer', 'class' :  'form-control', 'placeholder': 'placeholder.kilometers'|trans(), 'data-discount-field' : 'true'}}) }}
+                {{ form_errors(form.kilometers) }}
+            </div>
+            <div class="form-group">
                 <label for="fetch_hotel_sortBy">{{ 'label.sort_by'|trans() }}</label>
                 {{ form_widget(form.sortBy, {'attr' :  {'type' :  'text', 'class' :  'form-control', 'placeholder': 'placeholder.sort_by'|trans(), 'data-discount-field' : 'true'}}) }}
                 {{ form_errors(form.sortBy) }}

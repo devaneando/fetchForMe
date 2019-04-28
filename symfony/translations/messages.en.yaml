@@ -1,12 +1,14 @@
 title:
     fetch_your_hotel: Fetch your hotel!
 label:
+    kilometers: Max. Kilometers
     latitude: Latitude
     longitude: Longitude
     sort_by: Sort by
 button:
     fetch: Fetch
 placeholder:
+    kilometers: Max. Kilometers
     latitude: Latitude
     longitude: Longitude
     sort_by: Sort by

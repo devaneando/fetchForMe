@@ -20,12 +20,20 @@ class TestSearchService extends KernelTestCase
         /** @var SearchService $searchService */
         $searchService = $this->getService(SearchService::class);
         $distance = $searchService->haversineDistance(
-            38.7135939,
             -9.1579266,
-            40.7135939,
-            -10.1579266
+            38.7135939,
+            -10.1579266,
+            40.7135939
         );
-        $this->assertEquals(207, $distance);
+        $this->assertEquals(245.81, $distance);
+
+        $distance = $searchService->haversineDistance(
+            -9.1579266,
+            38.7135939,
+            -9.142177100000026,
+            38.7134372
+        );
+        $this->assertEquals(1.75, $distance);
     }
 
     public function testGetNearbyHotels()
