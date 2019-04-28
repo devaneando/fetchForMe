@@ -112,9 +112,7 @@ class SearchService
             $data[] = [
                 'name' => $name,
                 'distance' => $distance,
-                'price' => (float)$hotel[3],
-                'latitude' => $hotel[2],
-                'longitude' => $hotel[1],
+                'price' => (float)$hotel[3]
             ];
         }
 
